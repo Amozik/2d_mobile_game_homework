@@ -13,7 +13,8 @@ namespace MobileGame.Controllers
             _view.Init(leftMove, rightMove, car.Speed);
         }
 
-        private readonly ResourcePath _viewPath = new ResourcePath {PathResource = "Prefabs/endlessMove"};
+        //private readonly ResourcePath _viewPath = new ResourcePath {PathResource = "Prefabs/endlessMove"};
+        private readonly ResourcePath _viewPath = new ResourcePath {PathResource = "Prefabs/mobileSingleStickControl"};
         private BaseInputView _view;
 
         private BaseInputView LoadView()
