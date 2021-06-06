@@ -1,4 +1,5 @@
-﻿using MobileGame.Enums;
+﻿using System.Collections.Generic;
+using MobileGame.Enums;
 using MobileGame.Tools;
 using MobileGame.Views;
 using Platformer.Player;
@@ -30,6 +31,10 @@ namespace MobileGame.Controllers
         private void StartGame()
         {
             _profilePlayer.CurrentState.Value = GameState.Game;
+            _profilePlayer.AnalyticTools.SendMessage("start_game", new Dictionary<string, object>
+            {
+                {"time", Time.realtimeSinceStartup},
+            });
         }
     }
 }
