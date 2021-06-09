@@ -12,9 +12,11 @@ namespace MobileGame.Controllers
             _view = LoadView();
             _view.Init(leftMove, rightMove, car.Speed);
         }
-
-        //private readonly ResourcePath _viewPath = new ResourcePath {PathResource = "Prefabs/endlessMove"};
+#if UNITY_EDITOR
         private readonly ResourcePath _viewPath = new ResourcePath {PathResource = "Prefabs/mobileSingleStickControl"};
+#else
+        private readonly ResourcePath _viewPath = new ResourcePath {PathResource = "Prefabs/endlessMove"};
+#endif        
         private BaseInputView _view;
 
         private BaseInputView LoadView()
