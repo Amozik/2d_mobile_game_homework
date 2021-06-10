@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using MobileGame.Ads;
 using MobileGame.Controllers;
+using MobileGame.Data.Items;
 using MobileGame.Enums;
 using Platformer.Player;
 using UnityEngine;
@@ -15,13 +16,17 @@ namespace MobileGame
         [SerializeField] 
         private UnityAdsTools _unityAdsTools;
         
+        [SerializeField] 
+        private List<ItemConfig> _itemsConfigs;
+        
         private MainController _mainController;
+        
 
         private void Awake()
         {
             var profilePlayer = new ProfilePlayer(15f, _unityAdsTools);
             profilePlayer.CurrentState.Value = GameState.Start;
-            _mainController = new MainController(_placeForUi, profilePlayer);
+            _mainController = new MainController(_placeForUi, profilePlayer, _itemsConfigs);
             
             profilePlayer.AnalyticTools.SendMessage("load_game", new Dictionary<string, object>
             {
