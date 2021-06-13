@@ -21,6 +21,7 @@ namespace MobileGame.Inventory
         
         public Action<IItem> Selected { get; set; }
         public Action<IItem> Deselected { get; set; }
+        public Action CloseInventory { get; set; }
         
         private IReadOnlyList<IItem> _itemInfoCollection;
         private List<InventoryItemView> _itemViiewCollection = new List<InventoryItemView>();
@@ -31,7 +32,7 @@ namespace MobileGame.Inventory
             _canvasGroup = GetComponentInChildren<CanvasGroup>();
             SetupCanvasGroup(false);
             
-            _closeBtn.onClick.AddListener(UnDisplay);
+            _closeBtn.onClick.AddListener(() => CloseInventory?.Invoke());
         }
 
         public void Display(IReadOnlyList<IItem> items)

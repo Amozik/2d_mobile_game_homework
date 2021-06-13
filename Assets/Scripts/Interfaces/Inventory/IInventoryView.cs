@@ -8,6 +8,7 @@ namespace MobileGame.Interfaces.Inventory
     {
         Action<IItem> Selected { get; set; }
         Action<IItem> Deselected { get; set; }
+        Action CloseInventory { get; set; }
         void Display(IReadOnlyList<IItem> items);
         void UnDisplay();
     }

@@ -19,10 +19,19 @@ namespace MobileGame.Inventory
         private readonly IItemsRepository _itemsRepository;
         private readonly IInventoryView _inventoryWindowView;
 
+        private Action _onHide;
+
         public InventoryController(List<ItemConfig> itemConfigs, Transform placeForUi)
         {
             _inventoryModel = new InventoryModel();
             _itemsRepository = new ItemsRepository(itemConfigs);
+            _inventoryWindowView = LoadView(placeForUi);
+        }
+        
+        public InventoryController(IInventoryModel inventoryModel, IItemsRepository itemsRepository, Transform placeForUi)
+        {
+            _inventoryModel = inventoryModel;
+            _itemsRepository = itemsRepository;
             _inventoryWindowView = LoadView(placeForUi);
         }
         
@@ -34,26 +43,30 @@ namespace MobileGame.Inventory
             return objectView.GetComponent<InventoryView>();
         }
         
-        public void ShowInventory(Action callback)
+        public void ShowInventory(Action onHide)
         {
             _inventoryWindowView.Display(_itemsRepository.Items.Values.ToList());
+            _onHide += onHide;
             SubscribeView();
         }
 
         public void HideInventory()
         {
             _inventoryWindowView.UnDisplay();
+            _onHide?.Invoke();
             UnSubscribeView();
         }
 
         private void SubscribeView()
         {
+            _inventoryWindowView.CloseInventory += HideInventory;
             _inventoryWindowView.Selected += OnItemSelected;
             _inventoryWindowView.Deselected += OnItemDeselected;
         }
 
         private void UnSubscribeView()
         {
+            _inventoryWindowView.CloseInventory -= HideInventory;
             _inventoryWindowView.Selected -= OnItemSelected;
             _inventoryWindowView.Deselected -= OnItemDeselected;
         } 

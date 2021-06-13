@@ -9,7 +9,7 @@ namespace MobileGame.Controllers
 {
     public class MainController : BaseController
     {
-        public MainController(Transform placeForUi, ProfilePlayer profilePlayer, List<ItemConfig> itemsConfigs)
+        public MainController(Transform placeForUi, ProfilePlayer profilePlayer, List<UpgradeItemConfig> itemsConfigs)
         {
             _profilePlayer = profilePlayer;
             _placeForUi = placeForUi;
@@ -21,10 +21,10 @@ namespace MobileGame.Controllers
 
         private MainMenuController _mainMenuController;
         private GameController _gameController;
-        private InventoryController _inventoryController;
+        private GarageController _garageController;
         private readonly Transform _placeForUi;
         private readonly ProfilePlayer _profilePlayer;
-        private List<ItemConfig> _itemsConfigs;
+        private List<UpgradeItemConfig> _itemsConfigs;
 
         protected override void OnDispose()
         {
@@ -42,8 +42,8 @@ namespace MobileGame.Controllers
                     _gameController?.Dispose();
                     break;
                 case GameState.Game:
-                    _inventoryController = new InventoryController(_itemsConfigs, _placeForUi);
-                    _inventoryController.ShowInventory(() => { });
+                    _garageController = new GarageController(_itemsConfigs, _profilePlayer.CurrentCar, _placeForUi);
+                    _garageController.Enter();
                     
                     _gameController = new GameController(_profilePlayer);
                     _mainMenuController?.Dispose();
@@ -57,7 +57,7 @@ namespace MobileGame.Controllers
         private void ClearAll()
         {
             _mainMenuController?.Dispose();
-            _inventoryController?.Dispose();
+            _garageController?.Dispose();
             _gameController?.Dispose();
         }
     }

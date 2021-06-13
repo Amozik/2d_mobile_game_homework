@@ -17,7 +17,7 @@ namespace MobileGame
         private UnityAdsTools _unityAdsTools;
         
         [SerializeField] 
-        private List<ItemConfig> _itemsConfigs;
+        private List<UpgradeItemConfig> _itemsConfigs;
         
         private MainController _mainController;
         
