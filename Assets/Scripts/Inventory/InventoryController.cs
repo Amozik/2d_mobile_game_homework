@@ -7,7 +7,6 @@ using MobileGame.Interfaces.Inventory;
 using MobileGame.Interfaces.Items;
 using MobileGame.Items;
 using MobileGame.Tools;
-using MobileGame.Views;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -38,11 +37,41 @@ namespace MobileGame.Inventory
         public void ShowInventory(Action callback)
         {
             _inventoryWindowView.Display(_itemsRepository.Items.Values.ToList());
+            SubscribeView();
         }
 
         public void HideInventory()
         {
             _inventoryWindowView.UnDisplay();
+            UnSubscribeView();
+        }
+
+        private void SubscribeView()
+        {
+            _inventoryWindowView.Selected += OnItemSelected;
+            _inventoryWindowView.Deselected += OnItemDeselected;
+        }
+
+        private void UnSubscribeView()
+        {
+            _inventoryWindowView.Selected -= OnItemSelected;
+            _inventoryWindowView.Deselected -= OnItemDeselected;
+        } 
+
+        private void OnItemSelected(IItem item)
+        {
+            _inventoryModel.EquipItem(item);
+        }
+        
+        private void OnItemDeselected(IItem item)
+        {
+            _inventoryModel.UnEquipItem(item);
+        }
+
+        protected override void OnDispose()
+        {
+            UnSubscribeView();
+            base.OnDispose();
         }
     }
 }

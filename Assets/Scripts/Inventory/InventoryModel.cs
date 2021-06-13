@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using MobileGame.Interfaces.Inventory;
 using MobileGame.Interfaces.Items;
+using UnityEngine;
 
 namespace MobileGame.Inventory
 {
@@ -19,6 +20,7 @@ namespace MobileGame.Inventory
                 return;
             
             _items.Add(item);
+            Debug.Log($"{item.Info.Title} equipped");
         }
 
         public void UnEquipItem(IItem item)
@@ -27,6 +29,7 @@ namespace MobileGame.Inventory
                 return;
             
             _items.Remove(item);
+            Debug.Log($"{item.Info.Title} unequipped");
         }
     }
 }

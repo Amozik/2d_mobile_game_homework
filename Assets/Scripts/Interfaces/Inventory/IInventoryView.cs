@@ -6,8 +6,8 @@ namespace MobileGame.Interfaces.Inventory
 {
     public interface IInventoryView
     {
-        event EventHandler<IItem> Selected;
-        event EventHandler<IItem> Deselected;
+        Action<IItem> Selected { get; set; }
+        Action<IItem> Deselected { get; set; }
         void Display(IReadOnlyList<IItem> items);
         void UnDisplay();
     }

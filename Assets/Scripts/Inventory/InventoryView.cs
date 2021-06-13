@@ -9,7 +9,7 @@ using Object = UnityEngine.Object;
 
 namespace MobileGame.Inventory
 {
-    public class InventoryView : MonoBehaviour, IInventoryView
+    public sealed class InventoryView : MonoBehaviour, IInventoryView
     {
         [SerializeField] 
         private Transform _targetItems;
@@ -19,8 +19,8 @@ namespace MobileGame.Inventory
         
         private readonly ResourcePath _itemViewPath = new ResourcePath {PathResource = "Prefabs/inventoryItem"};
         
-        public event EventHandler<IItem> Selected;
-        public event EventHandler<IItem> Deselected;
+        public Action<IItem> Selected { get; set; }
+        public Action<IItem> Deselected { get; set; }
         
         private IReadOnlyList<IItem> _itemInfoCollection;
         private List<InventoryItemView> _itemViiewCollection = new List<InventoryItemView>();
@@ -43,7 +43,7 @@ namespace MobileGame.Inventory
                 var itemView = Object.Instantiate(ResourceLoader.LoadPrefab(_itemViewPath), _targetItems, false);
 
                 var inventoryItemView = itemView.GetComponent<InventoryItemView>();
-                inventoryItemView.Title.text = item.Info.Title;
+                inventoryItemView.Init(item, OnItemViewSelect);
                     
                 _itemViiewCollection.Add(inventoryItemView);
             }
@@ -54,14 +54,26 @@ namespace MobileGame.Inventory
             SetupCanvasGroup(false);
         }
 
-        protected virtual void OnSelected(IItem e)
+        private void OnItemViewSelect(IItem item, bool isSelected)
         {
-            Selected?.Invoke(this, e);
+            if (isSelected)
+            {
+                OnSelected(item);
+            }
+            else
+            {
+                OnDeselected(item);
+            }
         }
 
-        protected virtual void OnDeselected(IItem e)
+        private void OnSelected(IItem e)
         {
-            Deselected?.Invoke(this, e);
+            Selected?.Invoke(e);
+        }
+
+        private void OnDeselected(IItem e)
+        {
+            Deselected?.Invoke(e);
         }
 
         private void SetupCanvasGroup(bool value)
