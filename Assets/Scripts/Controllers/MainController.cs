@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MobileGame.Abilities;
 using MobileGame.Data.Items;
 using MobileGame.Enums;
 using MobileGame.Inventory;
@@ -9,22 +10,25 @@ namespace MobileGame.Controllers
 {
     public class MainController : BaseController
     {
-        public MainController(Transform placeForUi, ProfilePlayer profilePlayer, List<UpgradeItemConfig> itemsConfigs)
+        private MainMenuController _mainMenuController;
+        private GameController _gameController;
+        private GarageController _garageController;
+        private AbilitiesController _abilityController;
+        private readonly Transform _placeForUi;
+        private readonly ProfilePlayer _profilePlayer;
+        private List<UpgradeItemConfig> _itemsConfigs;
+        private List<AbilityItemConfig> _abilitiesConfigs;
+
+        public MainController(Transform placeForUi, ProfilePlayer profilePlayer, List<UpgradeItemConfig> itemsConfigs, List<AbilityItemConfig> abilitiesConfigs)
         {
             _profilePlayer = profilePlayer;
             _placeForUi = placeForUi;
             _itemsConfigs = itemsConfigs;
-            
+            _abilitiesConfigs = abilitiesConfigs;
+
             OnChangeGameState(_profilePlayer.CurrentState.Value);
             profilePlayer.CurrentState.SubscribeOnChange(OnChangeGameState);
         }
-
-        private MainMenuController _mainMenuController;
-        private GameController _gameController;
-        private GarageController _garageController;
-        private readonly Transform _placeForUi;
-        private readonly ProfilePlayer _profilePlayer;
-        private List<UpgradeItemConfig> _itemsConfigs;
 
         protected override void OnDispose()
         {
@@ -44,8 +48,8 @@ namespace MobileGame.Controllers
                 case GameState.Game:
                     _garageController = new GarageController(_itemsConfigs, _profilePlayer.CurrentCar, _placeForUi);
                     _garageController.Enter();
-                    
-                    _gameController = new GameController(_profilePlayer);
+
+                    _gameController = new GameController(_profilePlayer, _abilitiesConfigs, _placeForUi);
                     _mainMenuController?.Dispose();
                     break;
                 default:

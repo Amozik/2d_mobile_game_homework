@@ -1,11 +1,16 @@
-﻿using MobileGame.Tools;
+﻿using System.Collections.Generic;
+using MobileGame.Abilities;
+using MobileGame.Data.Items;
+using MobileGame.Tools;
 using Platformer.Player;
+using UnityEngine;
 
 namespace MobileGame.Controllers
 {
     public class GameController : BaseController
     {
-        public GameController(ProfilePlayer profilePlayer)
+        public GameController(ProfilePlayer profilePlayer, List<AbilityItemConfig> abilitiesConfigs,
+            Transform placeForUi)
         {
             var leftMoveDiff = new SubscriptionProperty<float>();
             var rightMoveDiff = new SubscriptionProperty<float>();
@@ -18,6 +23,10 @@ namespace MobileGame.Controllers
             
             var carController = new CarController();
             AddController(carController);
+
+            var abilityController = new AbilitiesController(abilitiesConfigs, carController, placeForUi);
+            AddController(abilityController);
+            abilityController.ShowAbilities();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace MobileGame.Controllers
 {
     public class GarageController : BaseController, IGarageController
     {
-        private readonly Car _car;
+        private readonly IUpgradableCar _car;
 
         private readonly UpgradeHandlersRepository _upgradeHandlersRepository;
         private readonly ItemsRepository _upgradeItemsRepository;

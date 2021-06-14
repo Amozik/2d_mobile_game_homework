@@ -14,6 +14,7 @@ namespace MobileGame.Data.Items
     {
         public ItemConfig itemConfig;
         public UpgradeType type;
+        public GameObject view;
         public float value;
 
         public int Id => itemConfig.id;

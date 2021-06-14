@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec476afe39bf4e278313c159e5685d06, type: 3}
-  m_Name: speedup_spoiler_ItemConfig
+  m_Script: {fileID: 11500000, guid: 4ffa140207f047cca190f157bc4db20f, type: 3}
+  m_Name: catton_gun_ability_config
   m_EditorClassIdentifier: 
-  itemConfig: {fileID: 11400000, guid: 36b775a8ed112c54293a135af28a9aa7, type: 2}
+  itemConfig: {fileID: 11400000, guid: f4d492e7b47572e40af2606850a66658, type: 2}
+  view: {fileID: 4177449860996577733, guid: 8e752db29a8c4ba4f8c1bae519814fa2, type: 3}
   type: 1
-  view: {fileID: 2911851707885947949, guid: 0445b64a7143edd499026e92394ed4c6, type: 3}
-  value: 20
+  value: 1000

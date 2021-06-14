@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace MobileGame.Upgrades
 {
-    public class SpeedUpgradeCarHandler : IUpgradeCarHandler
+    public class TiresUpgradeCarHandler : IUpgradeCarHandler
     {
-        private readonly float _speed;
+        private readonly float _control;
         private GameObject _view;
         
-        public SpeedUpgradeCarHandler(float speed, GameObject view)
+        public TiresUpgradeCarHandler(float control, GameObject view)
         {
-            _speed = speed;
+            _control = control;
             _view = view;
         }
         
@@ -18,8 +18,7 @@ namespace MobileGame.Upgrades
         {
             if (_view != null)
                 Object.Instantiate(_view);
-            
-            upgradableCar.Speed = _speed;
+
             return upgradableCar;
         }
 

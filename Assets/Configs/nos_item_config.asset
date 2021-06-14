@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b61551caf3c4113bf77802892375ddd, type: 3}
-  m_Name: gun_item_config
+  m_Name: nos_item_config
   m_EditorClassIdentifier: 
-  id: 2
-  title: Gun
+  id: 5
+  title: NOS

@@ -36,7 +36,9 @@ namespace MobileGame.Upgrades
             switch (config.type)
             {
                 case UpgradeType.Speed:
-                    return new SpeedUpgradeCarHandler(config.value);
+                    return new SpeedUpgradeCarHandler(config.value, config.view);
+                case UpgradeType.Control:
+                    return new TiresUpgradeCarHandler(config.value, config.view);
                 default:
                     return StubUpgradeCarHandler.Default;
             }

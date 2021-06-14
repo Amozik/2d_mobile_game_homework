@@ -17,12 +17,11 @@ namespace MobileGame.Inventory
         [SerializeField] 
         private Button _closeBtn;
         
-        private readonly ResourcePath _itemViewPath = new ResourcePath {PathResource = "Prefabs/inventoryItem"};
-        
         public Action<IItem> Selected { get; set; }
         public Action<IItem> Deselected { get; set; }
         public Action CloseInventory { get; set; }
         
+        private readonly ResourcePath _itemViewPath = new ResourcePath {PathResource = "Prefabs/inventoryItem"};
         private IReadOnlyList<IItem> _itemInfoCollection;
         private List<InventoryItemView> _itemViiewCollection = new List<InventoryItemView>();
         private CanvasGroup _canvasGroup;

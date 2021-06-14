@@ -19,6 +19,9 @@ namespace MobileGame
         [SerializeField] 
         private List<UpgradeItemConfig> _itemsConfigs;
         
+        [SerializeField] 
+        private List<AbilityItemConfig> _abilitiesConfigs;
+        
         private MainController _mainController;
         
 
@@ -26,7 +29,7 @@ namespace MobileGame
         {
             var profilePlayer = new ProfilePlayer(15f, _unityAdsTools);
             profilePlayer.CurrentState.Value = GameState.Start;
-            _mainController = new MainController(_placeForUi, profilePlayer, _itemsConfigs);
+            _mainController = new MainController(_placeForUi, profilePlayer, _itemsConfigs, _abilitiesConfigs);
             
             profilePlayer.AnalyticTools.SendMessage("load_game", new Dictionary<string, object>
             {
