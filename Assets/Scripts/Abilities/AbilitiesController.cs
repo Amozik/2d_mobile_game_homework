@@ -3,7 +3,6 @@ using System.Linq;
 using MobileGame.Controllers;
 using MobileGame.Data.Items;
 using MobileGame.Interfaces.Abilities;
-using MobileGame.Interfaces.Inventory;
 using MobileGame.Interfaces.Items;
 using MobileGame.Items;
 using MobileGame.Tools;
@@ -11,7 +10,7 @@ using UnityEngine;
 
 namespace MobileGame.Abilities
 {
-    public class AbilitiesController : BaseController
+    public class AbilitiesController : BaseController, IAbilitiesController
     {
         private readonly ResourcePath _viewPath = new ResourcePath {PathResource = "Prefabs/abilities"};
         private readonly AbilityRepository _abilityRepository;
@@ -42,12 +41,12 @@ namespace MobileGame.Abilities
         
         public void ShowAbilities()
         {
-            _abilityCollectionView.Display(_abilityItemsRepository.Items.Values.ToList());
+            _abilityCollectionView.Display(_abilityItemsRepository.Collection.Values.ToList());
         }
         
         private void OnAbilityUseRequested(IItem e)
         {
-            if (_abilityRepository.AbilityMapByItemId.TryGetValue(e.Id, out var ability))
+            if (_abilityRepository.Collection.TryGetValue(e.Id, out var ability))
                 ability.Apply(_abilityActivator);
         }
 

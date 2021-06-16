@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using MobileGame.Controllers;
 using MobileGame.Data.Items;
+using MobileGame.Interfaces;
 using MobileGame.Interfaces.Upgrades;
 
 namespace MobileGame.Upgrades
 {
-    public class UpgradeHandlersRepository : BaseController
+    public class UpgradeHandlersRepository : BaseController, IRepository<int, IUpgradeCarHandler>
     {
-        public IReadOnlyDictionary<int, IUpgradeCarHandler> UpgradeItems => _upgradeItemsMapById;
+        public IReadOnlyDictionary<int, IUpgradeCarHandler> Collection => _upgradeItemsMapById;
         private Dictionary<int, IUpgradeCarHandler> _upgradeItemsMapById = new Dictionary<int, IUpgradeCarHandler>();
         
         public UpgradeHandlersRepository(List<UpgradeItemConfig> upgradeItemConfigs)

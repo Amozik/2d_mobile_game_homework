@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using MobileGame.Controllers;
 using MobileGame.Data.Items;
+using MobileGame.Interfaces;
 using MobileGame.Interfaces.Items;
 
 namespace MobileGame.Items
 {
-    public class ItemsRepository : BaseController, IItemsRepository
+    public class ItemsRepository : BaseController, IRepository<int, IItem>
     {
-        public IReadOnlyDictionary<int, IItem> Items => _itemsMapById;
+        public IReadOnlyDictionary<int, IItem> Collection => _itemsMapById;
     
         private Dictionary<int, IItem> _itemsMapById = new Dictionary<int, IItem>();
 
