@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ffa140207f047cca190f157bc4db20f, type: 3}
+  m_Name: catton_gun_ability_config
+  m_EditorClassIdentifier: 
+  itemConfig: {fileID: 11400000, guid: f4d492e7b47572e40af2606850a66658, type: 2}
+  view: {fileID: 4177449860996577733, guid: 8e752db29a8c4ba4f8c1bae519814fa2, type: 3}
+  type: 1
+  value: 1000

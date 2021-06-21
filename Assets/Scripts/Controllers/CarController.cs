@@ -1,12 +1,13 @@
-﻿using MobileGame.Tools;
+﻿using MobileGame.Interfaces.Abilities;
+using MobileGame.Tools;
 using MobileGame.Views;
 using UnityEngine;
 
 namespace MobileGame.Controllers
 {
-    public class CarController : BaseController
+    public class CarController : BaseController, IAbilityActivator
     {
-        private readonly ResourcePath _viewPath = new ResourcePath {PathResource = "Prefabs/Car"};
+        private readonly ResourcePath _viewPath = new ResourcePath {PathResource = "Prefabs/car"};
         private readonly CarView _carView;
 
         public CarController()
