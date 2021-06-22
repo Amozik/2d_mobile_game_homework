@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MobileGame.Controllers;
 using MobileGame.Data.Items;
+using MobileGame.Interfaces;
 using MobileGame.Interfaces.Inventory;
 using MobileGame.Interfaces.Items;
 using MobileGame.Items;
@@ -16,7 +17,7 @@ namespace MobileGame.Inventory
     {
         private readonly ResourcePath _viewPath = new ResourcePath {PathResource = "Prefabs/inventory"};
         private readonly IInventoryModel _inventoryModel;
-        private readonly IItemsRepository _itemsRepository;
+        private readonly IRepository<int, IItem> _itemsRepository;
         private readonly IInventoryView _inventoryWindowView;
 
         private Action _onHide;
@@ -28,7 +29,7 @@ namespace MobileGame.Inventory
             _inventoryWindowView = LoadView(placeForUi);
         }
         
-        public InventoryController(IInventoryModel inventoryModel, IItemsRepository itemsRepository, Transform placeForUi)
+        public InventoryController(IInventoryModel inventoryModel, IRepository<int, IItem> itemsRepository, Transform placeForUi)
         {
             _inventoryModel = inventoryModel;
             _itemsRepository = itemsRepository;
@@ -45,7 +46,7 @@ namespace MobileGame.Inventory
         
         public void ShowInventory(Action onHide)
         {
-            _inventoryWindowView.Display(_itemsRepository.Items.Values.ToList());
+            _inventoryWindowView.Display(_itemsRepository.Collection.Values.ToList());
             _onHide += onHide;
             SubscribeView();
         }

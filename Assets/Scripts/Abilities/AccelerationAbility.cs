@@ -1,5 +1,7 @@
 ﻿using MobileGame.Data.Items;
 using MobileGame.Interfaces.Abilities;
+using MobileGame.Views;
+using UnityEngine;
 
 namespace MobileGame.Abilities
 {
@@ -14,7 +16,8 @@ namespace MobileGame.Abilities
 
         public void Apply(IAbilityActivator activator)
         {
-            //TODO на время ускорить машинку
+            var viewObject = activator.GetViewObject();
+            viewObject.GetComponent<CarView>().Accelerate();
         }
     }
 }

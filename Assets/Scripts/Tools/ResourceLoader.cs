@@ -2,7 +2,7 @@
 
 namespace MobileGame.Tools
 {
-    public class ResourceLoader
+    public static class ResourceLoader
     {
         public static GameObject LoadPrefab(ResourcePath path)
         {

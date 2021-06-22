@@ -50,7 +50,7 @@ namespace MobileGame.Controllers
 
         public void Exit()
         {
-            UpgradeCarWithEquippedItems(_car, _inventoryModel.GetEquippedItems(), _upgradeHandlersRepository.UpgradeItems);
+            UpgradeCarWithEquippedItems(_car, _inventoryModel.GetEquippedItems(), _upgradeHandlersRepository.Collection);
             Debug.Log($"Exit: car has speed : {_car.Speed}");
         }
         

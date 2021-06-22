@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using MobileGame.Abilities;
 using MobileGame.Data.Items;
 using MobileGame.Enums;
-using MobileGame.Inventory;
 using Platformer.Player;
 using UnityEngine;
 
@@ -13,11 +11,10 @@ namespace MobileGame.Controllers
         private MainMenuController _mainMenuController;
         private GameController _gameController;
         private GarageController _garageController;
-        private AbilitiesController _abilityController;
         private readonly Transform _placeForUi;
         private readonly ProfilePlayer _profilePlayer;
-        private List<UpgradeItemConfig> _itemsConfigs;
-        private List<AbilityItemConfig> _abilitiesConfigs;
+        private readonly List<UpgradeItemConfig> _itemsConfigs;
+        private readonly List<AbilityItemConfig> _abilitiesConfigs;
 
         public MainController(Transform placeForUi, ProfilePlayer profilePlayer, List<UpgradeItemConfig> itemsConfigs, List<AbilityItemConfig> abilitiesConfigs)
         {

@@ -2,19 +2,26 @@
 using System.Collections.Generic;
 using MobileGame.Controllers;
 using MobileGame.Data.Items;
+using MobileGame.Interfaces;
 using MobileGame.Interfaces.Abilities;
 
 namespace MobileGame.Abilities
 {
-    public class AbilityRepository : BaseController, IAbilityRepository
+    public class AbilityRepository : BaseController, IRepository<int, IAbility>
     {
-        public IReadOnlyDictionary<int, IAbility> AbilityMapByItemId => _abilityMapByItemId;
+        public IReadOnlyDictionary<int, IAbility> Collection => _abilityMapByItemId;
         
         private Dictionary<int, IAbility> _abilityMapByItemId = new Dictionary<int, IAbility>();
 
         public AbilityRepository(List<AbilityItemConfig> abilityConfigs)
         {
             PopulateItems(abilityConfigs);
+        }
+        
+        protected override void OnDispose()
+        {
+            _abilityMapByItemId.Clear();
+            _abilityMapByItemId = null;
         }
         
         private void PopulateItems(List<AbilityItemConfig> configs)
