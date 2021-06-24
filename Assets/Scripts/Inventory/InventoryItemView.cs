@@ -2,7 +2,6 @@
 using MobileGame.Extensions;
 using MobileGame.Interfaces.Items;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 namespace MobileGame.Inventory
