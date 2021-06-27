@@ -971,7 +971,7 @@ MonoBehaviour:
   _containerSlotRewardView: {fileID: 2301160115611033401, guid: d74807742595fc6448752c2d500fe6b8, type: 3}
   _getRewardButton: {fileID: 5439165832372489701}
   _resetButton: {fileID: 5439165831606506488}
-  _closeButton: {fileID: 8490408404604133641}
+  _closeButton: {fileID: 3424459918175455218}
   _progressBar: {fileID: 5782553830324471214}
 --- !u!1 &7584210567549211605
 GameObject:
@@ -983,7 +983,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2647866403588685283}
   - component: {fileID: 7138030877637021836}
-  - component: {fileID: 8490408404604133641}
+  - component: {fileID: 3424459918175455218}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -1019,7 +1019,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7584210567549211605}
   m_CullTransparentMesh: 1
---- !u!114 &8490408404604133641
+--- !u!114 &3424459918175455218
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1028,7 +1028,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7584210567549211605}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: f20beb3173954777b5d791ee24c46902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -1063,6 +1063,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+  _animationButtonType: 2
+  _curveEase: 1
+  _duration: 0.1
 --- !u!1001 &539418062851842636
 PrefabInstance:
   m_ObjectHideFlags: 0

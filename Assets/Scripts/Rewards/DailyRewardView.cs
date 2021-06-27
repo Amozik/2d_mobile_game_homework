@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using MobileGame.Views;
 using TMPro;
 using UnityEngine;
@@ -10,6 +11,8 @@ namespace MobileGame.Rewards
 {
     public class DailyRewardView : MonoBehaviour
     {
+        private const float SHOW_ANIMATION_DURATION = 0.3f;
+        
         [SerializeField] 
         private TMP_Text _timerNewReward;
     
@@ -58,6 +61,8 @@ namespace MobileGame.Rewards
             _getRewardButton.onClick.AddListener(claimReward);
             _resetButton.onClick.AddListener(resetTimer);
             _closeButton.onClick.AddListener(() => CloseAction?.Invoke());
+            
+            transform.localScale = Vector3.zero;
         }
 
         public void RefreshRewards(DateTime? timeGetReward, bool isGetReward, int currentSlotInActive)
@@ -88,11 +93,12 @@ namespace MobileGame.Rewards
         public void Show()
         {
             SetupCanvasGroup(true);
+            AnimationShow();
         }
 
         public void Hide()
         {
-            SetupCanvasGroup(false);
+            AnimationHide(() => SetupCanvasGroup(false));
         }
         
         private void OnDestroy()
@@ -108,5 +114,30 @@ namespace MobileGame.Rewards
             _canvasGroup.interactable = value;
             _canvasGroup.blocksRaycasts = value;
         }
+        
+        private void AnimationShow()
+        {
+            var sequence = DOTween.Sequence();
+      
+            sequence.Insert(0.0f, transform.DOScale(Vector3.one, SHOW_ANIMATION_DURATION));
+            sequence.OnComplete(() =>
+            {
+                sequence = null;
+            });
+        }
+        
+        private void AnimationHide(Action onComplete)
+        {
+            var sequence = DOTween.Sequence();
+      
+            sequence.Insert(0.0f, transform.DOScale(Vector3.zero, SHOW_ANIMATION_DURATION));
+            sequence.OnComplete(() =>
+            {
+                sequence = null;
+                onComplete?.Invoke();
+            });
+        }
+
+
     }
 }

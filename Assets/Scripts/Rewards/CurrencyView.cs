@@ -1,20 +1,23 @@
-﻿using TMPro;
+﻿using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MobileGame.Rewards
 {
     public class CurrencyView : MonoBehaviour
     {
+        private const float CHANGE_TEXT_ANIMATION_DURATION = 2.5f;
+        
         [SerializeField] 
-        private TMP_Text _currentCountCoin;
+        private Text _currentCountCoin;
     
         [SerializeField] 
-        private TMP_Text _currentCountFuel;
+        private Text _currentCountFuel;
 
         public void UpdateCurrencies(int coins, int fuel)
         {
-            _currentCountCoin.text = coins.ToString();
-            _currentCountFuel.text = fuel.ToString();
+            _currentCountCoin.DOText(coins.ToString(), CHANGE_TEXT_ANIMATION_DURATION).SetEase(Ease.OutCubic);
+            _currentCountFuel.DOText(fuel.ToString(), CHANGE_TEXT_ANIMATION_DURATION).SetEase(Ease.OutCubic);
         }
     }
 }
