@@ -9,14 +9,19 @@ namespace MobileGame.Views
         [SerializeField] 
         private Button _buttonStart;
         
-        public void Init(UnityAction startGame)
+        [SerializeField] 
+        private Button _buttonExit;
+        
+        public void Init(UnityAction startGame, UnityAction exitGame)
         {
             _buttonStart.onClick.AddListener(startGame);
+            _buttonExit.onClick.AddListener(exitGame);
         }
 
         protected void OnDestroy()
         {
             _buttonStart.onClick.RemoveAllListeners();
+            _buttonExit.onClick.RemoveAllListeners();
         }
     }
 }

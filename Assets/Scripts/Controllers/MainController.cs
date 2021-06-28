@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MobileGame.Data;
 using MobileGame.Data.Items;
 using MobileGame.Enums;
 using Platformer.Player;
@@ -15,13 +16,15 @@ namespace MobileGame.Controllers
         private readonly ProfilePlayer _profilePlayer;
         private readonly List<UpgradeItemConfig> _itemsConfigs;
         private readonly List<AbilityItemConfig> _abilitiesConfigs;
+        private readonly UiConfig _uiConfig;
 
-        public MainController(Transform placeForUi, ProfilePlayer profilePlayer, List<UpgradeItemConfig> itemsConfigs, List<AbilityItemConfig> abilitiesConfigs)
+        public MainController(Transform placeForUi, ProfilePlayer profilePlayer, GameConfig gameConfig)
         {
             _profilePlayer = profilePlayer;
             _placeForUi = placeForUi;
-            _itemsConfigs = itemsConfigs;
-            _abilitiesConfigs = abilitiesConfigs;
+            _itemsConfigs = gameConfig.itemsConfigs;
+            _abilitiesConfigs = gameConfig.abilitiesConfigs;
+            _uiConfig = gameConfig.uiConfig;
 
             OnChangeGameState(_profilePlayer.CurrentState.Value);
             profilePlayer.CurrentState.SubscribeOnChange(OnChangeGameState);
@@ -46,7 +49,7 @@ namespace MobileGame.Controllers
                     _garageController = new GarageController(_itemsConfigs, _profilePlayer.CurrentCar, _placeForUi);
                     _garageController.Enter();
 
-                    _gameController = new GameController(_profilePlayer, _abilitiesConfigs, _placeForUi);
+                    _gameController = new GameController(_profilePlayer, _abilitiesConfigs, _uiConfig, _placeForUi);
                     _mainMenuController?.Dispose();
                     break;
                 default:
