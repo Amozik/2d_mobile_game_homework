@@ -1,4 +1,5 @@
 ﻿using MobileGame.Data;
+using MobileGame.Enums;
 using MobileGame.Rewards;
 using Platformer.Player;
 using UnityEngine;
@@ -9,9 +10,12 @@ namespace MobileGame.Controllers
     public class UiController : BaseController
     {
         private CurrencyView _currencyView;
-        private Button _dailyRewardButton;
+        
         private ProfilePlayer _profilePlayer;
         private DailyRewardController _dailyRewardController;
+        
+        private Button _dailyRewardButton;
+        private Button _startFightButton;
 
         public UiController(UiConfig uiConfig, Transform placeForUi, ProfilePlayer profilePlayer)
         {
@@ -28,6 +32,9 @@ namespace MobileGame.Controllers
             _dailyRewardController.OnGetReward += UpdateCurrencies;
             
             _dailyRewardButton.onClick.AddListener(_dailyRewardController.Display);
+            
+            _startFightButton = Object.Instantiate(uiConfig.startFightButton, placeForUi, false);
+            _startFightButton.onClick.AddListener(StartFight);
         }
 
         private void UpdateCurrencies()
@@ -35,9 +42,19 @@ namespace MobileGame.Controllers
             _currencyView.UpdateCurrencies(_profilePlayer.Coins, _profilePlayer.Fuel);
         }
 
+        private void StartFight()
+        {
+            _profilePlayer.CurrentState.Value = GameState.Fight;
+        }
+
         protected override void OnDispose()
         {
             _dailyRewardController.OnGetReward -= UpdateCurrencies;
+            
+            _dailyRewardButton.onClick.RemoveAllListeners();
+            _startFightButton.onClick.RemoveAllListeners();
+            
+            base.OnDispose();
         }
     }
 }

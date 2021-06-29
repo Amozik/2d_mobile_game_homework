@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using AI.Data;
+using MobileGame.AI;
 using MobileGame.Data;
 using MobileGame.Data.Items;
 using MobileGame.Enums;
@@ -12,19 +14,24 @@ namespace MobileGame.Controllers
         private MainMenuController _mainMenuController;
         private GameController _gameController;
         private GarageController _garageController;
+        private FightWindowController _fightController;
+        
         private readonly Transform _placeForUi;
         private readonly ProfilePlayer _profilePlayer;
         private readonly List<UpgradeItemConfig> _itemsConfigs;
         private readonly List<AbilityItemConfig> _abilitiesConfigs;
         private readonly UiConfig _uiConfig;
+        private readonly PlayerFightConfig _playerFightConfig;
 
         public MainController(Transform placeForUi, ProfilePlayer profilePlayer, GameConfig gameConfig)
         {
             _profilePlayer = profilePlayer;
             _placeForUi = placeForUi;
+            
             _itemsConfigs = gameConfig.itemsConfigs;
             _abilitiesConfigs = gameConfig.abilitiesConfigs;
             _uiConfig = gameConfig.uiConfig;
+            _playerFightConfig = gameConfig.playerFightConfig;
 
             OnChangeGameState(_profilePlayer.CurrentState.Value);
             profilePlayer.CurrentState.SubscribeOnChange(OnChangeGameState);
@@ -50,7 +57,15 @@ namespace MobileGame.Controllers
                     _garageController.Enter();
 
                     _gameController = new GameController(_profilePlayer, _abilitiesConfigs, _uiConfig, _placeForUi);
+                    
                     _mainMenuController?.Dispose();
+                    _fightController?.Dispose();
+                    break;
+                case GameState.Fight:
+                    _fightController = new FightWindowController(_uiConfig.fightWindowView, _playerFightConfig, _profilePlayer);
+
+                    _gameController?.Dispose();
+                    _garageController?.Dispose();
                     break;
                 default:
                     ClearAll();
@@ -63,6 +78,7 @@ namespace MobileGame.Controllers
             _mainMenuController?.Dispose();
             _garageController?.Dispose();
             _gameController?.Dispose();
+            _fightController?.Dispose();
         }
     }
 }

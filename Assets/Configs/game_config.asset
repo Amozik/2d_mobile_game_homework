@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: game_config
   m_EditorClassIdentifier: 
   uiConfig: {fileID: 11400000, guid: 88b4fb72915ab7848adc5fbc11ffdbdc, type: 2}
+  playerFightConfig: {fileID: 11400000, guid: 4110a01e3ca5b8c4380473d23332409f, type: 2}
   itemsConfigs:
   - {fileID: 11400000, guid: c7be67d57d166a747b52a6f3314df632, type: 2}
   - {fileID: 11400000, guid: e4c44fd9bfb0bcf4bb4eff77095ddfd5, type: 2}
@@ -20,4 +21,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 66da9038fbf9a3344b492d7ca065afed, type: 2}
   - {fileID: 11400000, guid: 9c0651dcb9505374e91b36f32835f752, type: 2}
   - {fileID: 11400000, guid: 8d0525eb5d9462d4fb5c145d0ae9f1fe, type: 2}
-  dailyRewardsConfig: {fileID: 11400000, guid: 67330719bc227c3448c8660f98e42f1a, type: 2}
