@@ -17,7 +17,7 @@ namespace MobileGame.Controllers
         {
             _profilePlayer = profilePlayer;
             _view = LoadView(placeForUi);
-            _view.Init(StartGame);
+            _view.Init(StartGame, ExitGame);
         }
     
         private MainMenuView LoadView(Transform placeForUi)
@@ -38,6 +38,11 @@ namespace MobileGame.Controllers
             {
                 {"time", Time.realtimeSinceStartup},
             });
+        }
+
+        private void ExitGame()
+        {
+            Application.Quit();
         }
     }
 }

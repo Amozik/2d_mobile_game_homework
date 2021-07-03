@@ -66,12 +66,12 @@ namespace MobileGame.Rewards
             {
                 var timeSpan = DateTime.UtcNow - _dailyRewardModel.TimeGetReward.Value;
 
-                if (timeSpan.Seconds > _timeDeadline)
+                if (timeSpan.TotalSeconds > _timeDeadline)
                 {
                     _dailyRewardModel.TimeGetReward = null;
                     _dailyRewardModel.CurrentSlotInActive = 0;
                 }
-                else if (timeSpan.Seconds < _timeCooldown)
+                else if (timeSpan.TotalSeconds < _timeCooldown)
                 {
                     _isGetReward = false;
                 }
