@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using MobileGame.Abilities;
+using MobileGame.Data;
 using MobileGame.Data.Items;
 using MobileGame.Tools;
 using Platformer.Player;
@@ -9,7 +10,7 @@ namespace MobileGame.Controllers
 {
     public class GameController : BaseController
     {
-        public GameController(ProfilePlayer profilePlayer, List<AbilityItemConfig> abilitiesConfigs,
+        public GameController(ProfilePlayer profilePlayer, List<AbilityItemConfig> abilitiesConfigs, UiConfig uiConfig,
             Transform placeForUi)
         {
             var leftMoveDiff = new SubscriptionProperty<float>();
@@ -27,6 +28,9 @@ namespace MobileGame.Controllers
             var abilityController = new AbilitiesController(abilitiesConfigs, carController, placeForUi);
             AddController(abilityController);
             abilityController.ShowAbilities();
+
+            var uiController = new UiController(uiConfig, placeForUi, profilePlayer);
+            AddController(uiController);
         }
     }
 }
