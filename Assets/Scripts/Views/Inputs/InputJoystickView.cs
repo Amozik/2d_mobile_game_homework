@@ -13,7 +13,7 @@ namespace MobileGame.Views.Inputs
             UpdateManager.SubscribeToUpdate(Move);
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             UpdateManager.UnsubscribeFromUpdate(Move);
         }
