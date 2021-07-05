@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00d70701f5bd44f891826df7143b5f6f, type: 3}
   m_Name: ui_config
   m_EditorClassIdentifier: 
-  fightWindowView: {fileID: 5148813289365346420, guid: e6da347d37e06cf449d3056dff95e7d4, type: 3}
+  fightWindowView:
+    m_AssetGUID: e6da347d37e06cf449d3056dff95e7d4
+    m_SubObjectName: 
+    m_SubObjectType: 
   dailyRewardsConfig: {fileID: 11400000, guid: 67330719bc227c3448c8660f98e42f1a, type: 2}
   currencyView: {fileID: 6538122063361071931, guid: 2bb4e7c8418c64542bebc101f22d3923, type: 3}
   dailyRewardButton: {fileID: 5670772169551406794, guid: 9389570e95ea0bf4eab8eb99ac9f97f0, type: 3}

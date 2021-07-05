@@ -1,11 +1,14 @@
-﻿using AI.Data;
+﻿using System.Diagnostics;
+using AI.Data;
 using AI.Enemies;
 using AI.Player;
 using MobileGame.Controllers;
 using MobileGame.Enums;
 using Platformer.Player;
 using UnityEngine;
-using Object = UnityEngine.Object;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using Debug = UnityEngine.Debug;
 
 namespace MobileGame.AI
 {
@@ -16,7 +19,9 @@ namespace MobileGame.AI
         private PlayerFightController _playerFightController;
         private Enemy _enemy;
 
-        public FightWindowController(FightWindowView view, PlayerFightConfig playerFightConfig, ProfilePlayer profilePlayer)
+        private Stopwatch _watchLoadPrefab;
+        
+        public FightWindowController(AssetReference view, PlayerFightConfig playerFightConfig, ProfilePlayer profilePlayer)
         {
             _profilePlayer = profilePlayer;
             _playerFightController = new PlayerFightController(playerFightConfig);
@@ -25,20 +30,30 @@ namespace MobileGame.AI
             _enemy = new Enemy("my enemy");
             _playerFightController.AttachEnemy(_enemy);
 
-            _fightWindowView = Object.Instantiate(view);
-            AddGameObjects(_fightWindowView.gameObject);
+            _watchLoadPrefab = Stopwatch.StartNew();
             
+            var asyncOperationHandle = Addressables.InstantiateAsync(view);
+
+            asyncOperationHandle.Completed += OnViewLoaded;
+        }
+
+        private void OnViewLoaded(AsyncOperationHandle<GameObject> asyncOperationHandle)
+        {
+            _fightWindowView = asyncOperationHandle.Result.GetComponent<FightWindowView>();
             _fightWindowView.ChangeDataWindow += ChangeDataWindow;
             _fightWindowView.Fight += Fight;
             _fightWindowView.Pass += Pass;
-            
+
             _fightWindowView.UpdatePlayerData(_playerFightController.Money, DataType.Money);
             _fightWindowView.UpdatePlayerData(_playerFightController.Health, DataType.Health);
             _fightWindowView.UpdatePlayerData(_playerFightController.Power, DataType.Power);
             _fightWindowView.UpdatePlayerData(_playerFightController.Crime, DataType.Crime);
             _fightWindowView.UpdateEnemyData(_enemy.Power);
-            
+
             _fightWindowView.SetPassVisibility(_playerFightController.Crime > 2);
+            
+            _watchLoadPrefab.Stop();
+            Debug.Log($"Load prefab time {_watchLoadPrefab.ElapsedMilliseconds}ms");
         }
         
         private void Fight()
@@ -76,6 +91,8 @@ namespace MobileGame.AI
             _fightWindowView.Pass -= Pass;
             
             _playerFightController.DetachEnemy(_enemy);
+
+            Addressables.ReleaseInstance(_fightWindowView.gameObject);
             
             base.OnDispose();
         }
