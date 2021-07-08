@@ -38,17 +38,8 @@ namespace MobileGame.Inventory
 
         private void OnToggle()
         {
-            switch (_isEquipped)
-            {
-                case true:
-                    _isEquipped = false;
-                    _buttonImage.SetTransparency(OFF_TRANSPARENCY);
-                    break;
-                case false:
-                    _isEquipped = true;
-                    _buttonImage.SetTransparency(ON_TRANSPARENCY);
-                    break;
-            }
+            _buttonImage.SetTransparency(_isEquipped ? OFF_TRANSPARENCY : ON_TRANSPARENCY);
+            _isEquipped = !_isEquipped;
             
             _toggle?.Invoke(_item, _isEquipped);
         }

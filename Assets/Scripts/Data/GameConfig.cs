@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AI.Data;
 using MobileGame.Data.Items;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ namespace MobileGame.Data
     public class GameConfig : ScriptableObject
     {
         public UiConfig uiConfig;
+        
+        public PlayerFightConfig playerFightConfig;
         
         public List<UpgradeItemConfig> itemsConfigs;
         
