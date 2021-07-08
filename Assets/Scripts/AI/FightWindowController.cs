@@ -4,6 +4,7 @@ using AI.Enemies;
 using AI.Player;
 using MobileGame.Controllers;
 using MobileGame.Enums;
+using MobileGame.Notifications;
 using Platformer.Player;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -58,9 +59,14 @@ namespace MobileGame.AI
         
         private void Fight()
         {
-            Debug.Log(_playerFightController.Power >= _enemy.Power
-                ? "<color=#07FF00>Win!!!</color>"
-                : "<color=#FF0000>Lose!!!</color>");
+            if (_playerFightController.Power >= _enemy.Power)
+            {
+                NotificationsService.Instance.Send("Fight Win!!!", Color.green);
+            }
+            else
+            {
+                NotificationsService.Instance.Send("Fight Loose :(", Color.red);
+            }
         }
         
         private void Pass()
