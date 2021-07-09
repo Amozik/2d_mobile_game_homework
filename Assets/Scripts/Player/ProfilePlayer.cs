@@ -10,6 +10,7 @@ namespace Platformer.Player
     {
         private const string CoinKey = nameof(CoinKey);
         private const string FuelKey = nameof(FuelKey);
+        private const string LangKey = nameof(LangKey);
         
         public SubscriptionProperty<GameState> CurrentState { get; }
         
@@ -21,6 +22,11 @@ namespace Platformer.Player
         public int Fuel { 
             get => PlayerPrefs.GetInt(FuelKey, 0);
             private set => PlayerPrefs.SetInt(FuelKey, value); 
+        }
+        
+        public string Lang { 
+            get => PlayerPrefs.GetString(LangKey, "en");
+            set => PlayerPrefs.SetString(LangKey, value); 
         }
 
         public Car CurrentCar { get; }

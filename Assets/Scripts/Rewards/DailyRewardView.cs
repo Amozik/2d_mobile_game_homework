@@ -9,10 +9,8 @@ using UnityEngine.UI;
 
 namespace MobileGame.Rewards
 {
-    public class DailyRewardView : MonoBehaviour
+    public class DailyRewardView : AnimatedWindow
     {
-        private const float SHOW_ANIMATION_DURATION = 0.3f;
-        
         [SerializeField] 
         private TMP_Text _timerNewReward;
     
@@ -39,13 +37,9 @@ namespace MobileGame.Rewards
         private List<Reward> _rewards;
         private List<ContainerSlotRewardView> _slots;
         private float _timeCooldown;
-        private CanvasGroup _canvasGroup;
         
         public void Init(List<Reward> rewards, float timeCooldown, UnityAction claimReward, UnityAction resetTimer)
         {
-            _canvasGroup = GetComponentInChildren<CanvasGroup>();
-            SetupCanvasGroup(false);
-            
             _rewards = rewards;
             _timeCooldown = timeCooldown;
             _slots = new List<ContainerSlotRewardView>();
@@ -90,54 +84,11 @@ namespace MobileGame.Rewards
                 _slots[i].SetData(_rewards[i],i + 1, i == currentSlotInActive);
         }
 
-        public void Show()
-        {
-            SetupCanvasGroup(true);
-            AnimationShow();
-        }
-
-        public void Hide()
-        {
-            AnimationHide(() => SetupCanvasGroup(false));
-        }
-        
         private void OnDestroy()
         {
             _getRewardButton.onClick.RemoveAllListeners();
             _resetButton.onClick.RemoveAllListeners();
             _closeButton.onClick.RemoveAllListeners();
         }
-        
-        private void SetupCanvasGroup(bool value)
-        {
-            _canvasGroup.alpha = value ? 1 : 0;
-            _canvasGroup.interactable = value;
-            _canvasGroup.blocksRaycasts = value;
-        }
-        
-        private void AnimationShow()
-        {
-            var sequence = DOTween.Sequence();
-      
-            sequence.Insert(0.0f, transform.DOScale(Vector3.one, SHOW_ANIMATION_DURATION));
-            sequence.OnComplete(() =>
-            {
-                sequence = null;
-            });
-        }
-        
-        private void AnimationHide(Action onComplete)
-        {
-            var sequence = DOTween.Sequence();
-      
-            sequence.Insert(0.0f, transform.DOScale(Vector3.zero, SHOW_ANIMATION_DURATION));
-            sequence.OnComplete(() =>
-            {
-                sequence = null;
-                onComplete?.Invoke();
-            });
-        }
-
-
     }
 }
