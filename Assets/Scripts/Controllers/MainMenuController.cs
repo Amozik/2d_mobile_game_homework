@@ -12,12 +12,17 @@ namespace MobileGame.Controllers
         private readonly ResourcePath _viewPath = new ResourcePath {PathResource = "Prefabs/mainMenu"};
         private readonly ProfilePlayer _profilePlayer;
         private readonly MainMenuView _view;
+        private readonly LangMenuController _langMenuController;
 
         public MainMenuController(Transform placeForUi, ProfilePlayer profilePlayer)
         {
             _profilePlayer = profilePlayer;
+
+            _langMenuController = new LangMenuController(placeForUi, _profilePlayer);
+            AddController(_langMenuController);
+            
             _view = LoadView(placeForUi);
-            _view.Init(StartGame, ExitGame);
+            _view.Init(StartGame, ExitGame, ShowLangMenu);
         }
     
         private MainMenuView LoadView(Transform placeForUi)
@@ -43,6 +48,11 @@ namespace MobileGame.Controllers
         private void ExitGame()
         {
             Application.Quit();
+        }
+
+        private void ShowLangMenu()
+        {
+            _langMenuController.Display();
         }
     }
 }
